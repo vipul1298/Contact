@@ -54,6 +54,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyHolder
                 public void onClick(View v) {
                     Listdata listdata = name.get(getAdapterPosition());
                     Intent i=new Intent(context, Contact_Details.class);
+                    i.putExtra("id",listdata.getUser_id());
                     i.putExtra("name",listdata.getName());
                     i.putExtra("phone",listdata.getPhone());
                     i.putExtra("email",listdata.getEmail());

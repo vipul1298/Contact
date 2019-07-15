@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.example.contactlist.Adapter.ContactAdapter;
 import android.example.contactlist.Model.Listdata;
+import android.example.contactlist.databaseUtils.DatabaseHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     String[] n;
     Context context=this;
     SQLiteDatabase sqLiteDatabase;
-    MyHelper myHelper;
+    public static DatabaseHelper myHelper;
     Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +48,21 @@ public class MainActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(n) || TextUtils.isEmpty(p) || TextUtils.isEmpty(e) || TextUtils.isEmpty(a)){
                     return;
                 }
-//                addContact(n);
-                myHelper=new MyHelper(context);
-                sqLiteDatabase=myHelper.getWritableDatabase();
-                myHelper.addContact(n,p,e,a,sqLiteDatabase);
+//
+                  myHelper=new DatabaseHelper(MainActivity.this);
+                Listdata l=new Listdata();
+                l.setName(n);
+                l.setEmail(e);
+                l.setCity(a);
+                l.setPhone(p);
+                if(myHelper.addContact(l)){
                 Toast.makeText(MainActivity.this, "Contact Saved", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Home.class));
+                startActivity(new Intent(getApplicationContext(),Home.class));}
 
             }
         });
 
 
     }
-//    private void addContact(String name){
-//        Listdata listdata = new Listdata(name);
-//        list.add(listdata);
-//        Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(getApplicationContext(),Home.class));
-//    }
+
 }

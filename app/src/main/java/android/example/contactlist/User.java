@@ -2,6 +2,7 @@ package android.example.contactlist;
 
 public class User {
     public static abstract class NewUser{
+        public static final String USER_ID ="id";
         public static final String USER_NAME ="user_name";
         public static final String USER_PHONE ="user_mob";
         public static final String USER_EMAIL ="user_email";

@@ -1,19 +1,29 @@
 package android.example.contactlist.Model;
 
 public class Listdata {
+    int user_id;
     String name;
     String phone;
     String email;
     String city;
 //
-    public Listdata(String name, String phone, String email, String city) {
+    public Listdata(int user_id,String name, String phone, String email, String city) {
         this.name = name;
+        this.user_id=user_id;
         this.phone = phone;
         this.email = email;
         this.city = city;
     }
 
     public Listdata() {
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {

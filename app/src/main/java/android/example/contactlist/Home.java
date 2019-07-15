@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.example.contactlist.Adapter.ContactAdapter;
 import android.example.contactlist.Model.Listdata;
+import android.example.contactlist.databaseUtils.DatabaseHelper;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -37,26 +38,32 @@ public class Home extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myHelper=new MyHelper(getApplicationContext());
-        sqLiteDatabase=myHelper.getReadableDatabase();
-        cursor=myHelper.retrieveData(sqLiteDatabase);
-        if(cursor.moveToFirst()){
-            do{
-               String name=cursor.getString(0);
-               String phone=cursor.getString(1);
-               String email=cursor.getString(2);
-               String address=cursor.getString(3);
-               Listdata listdata = new Listdata(name,phone,email,address);
-               list.add(listdata);
+//        myHelper=new MyHelper(getApplicationContext());
+//        sqLiteDatabase=myHelper.getReadableDatabase();
+//        cursor=myHelper.retrieveData(sqLiteDatabase);
+//        if(cursor.moveToFirst()){
+//            do{
+//               int user_id=cursor.getInt(0);
+//               String name=cursor.getString(1);
+//               String phone=cursor.getString(2);
+//               String email=cursor.getString(3);
+//               String address=cursor.getString(4);
+//
+//               Listdata listdata = new Listdata(user_id,name,phone,email,address);
+//               list.add(listdata);
+//
+//            }while(cursor.moveToNext());
+//        }
+//
+//                final ContactAdapter contactAdapter=new ContactAdapter(list,this);
 
-            }while(cursor.moveToNext());
-        }
-
-                final ContactAdapter contactAdapter=new ContactAdapter(list,this);
-        recyclerView.setAdapter(contactAdapter);
+        DatabaseHelper helper=new DatabaseHelper(Home.this);
+        ContactAdapter adapter=new ContactAdapter( helper.getAllData(),Home.this);
+        recyclerView.setAdapter(adapter);
 
 
        //Contact delete
+
 
 
         progressDialog = new ProgressDialog(Home.this);
